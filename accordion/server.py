@@ -1,10 +1,11 @@
 import argparse
 import cherrypy
 
-from pymongo import *
+import pymongo
 import pprint
+import os
 
-connection = Connection(environ[ACCORDION_MONGO_URI])
+connection = pymongo.Connection(os.environ[ACCORDION_MONGO_URI])
 
 class Root(object):
   pass
