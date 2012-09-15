@@ -16,8 +16,6 @@ conf = {
   }
 }
 
-#cherrypy.quickstart(root, '/', conf)
-
 def main():
   parser = argparse.ArgumentParser(prog='accordion-server', description='Accordion Cloud Aggregation')
 
@@ -26,4 +24,4 @@ def main():
 
   args = parser.parse_args()
 
-  
+  cherrypy.quickstart(root, '/', conf)
