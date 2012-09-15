@@ -11,10 +11,10 @@ class DropboxAdapter:
     """Get an authorized client using auth_info.
 
     Args:
-      - ``auth_info``: A tuple of (key, secret) representing the access token Dropbox assigned to this app and user
+    - ``auth_info``: A tuple of (key, secret) representing the access token Dropbox assigned to this app and user
 
     Returns:
-      - ``client.DropboxClient(sess)``: The authorized client
+    - ``client.DropboxClient(sess)``: The authorized client
 
     """
     sess = session.DropboxSession(APP_KEY, APP_SECRET, ACCESS_TYPE)
@@ -26,12 +26,12 @@ class DropboxAdapter:
     """Get the file specified by the path.
 
     Args:
-      - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
-      - ``path``: The path pointing toward the file, relative to /Dropbox/accordion/
+    - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
+    - ``path``: The path pointing toward the file, relative to /Dropbox/accordion/
 
     Returns:
-      - ``f``: The file specified by the path; you need to call f.read() to actually get the content
-      - ``metadata``: The metadata of the file
+    - ``f``: The file specified by the path; you need to call f.read() to actually get the content
+    - ``metadata``: The metadata of the file
 
     """
     client = DropboxAdapter.get_authorized_client(auth_info)
@@ -43,12 +43,15 @@ class DropboxAdapter:
     """Upload the file specified by local_path to remote_path
 
     Args:
-      - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
-      - ``local_path``: A path pointing toward the file, relative to the local root
-      - ``remote_path``: A path pointing toward the location where the file needs to be saved, not including file name
+    - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
+    - ``local_path``: A path pointing toward the file, relative to the local root
+    - ``remote_path``: A path pointing toward the location where the file needs to be saved, not including file name
+    - ``overwrite``: A boolean value specifying what happens if a file with the same path exists.
 
     Returns:
-      - ``metadata``: The metadata of the file specified by the path 
+    - ``metadata``: The metadata of the file specified by the path;
+                    you should check the name of the file via metadata if you specify overwrite=false;
+                    if there exists a file with the same path and name, the uploaded file will get a different name
 
     """
     client = DropboxAdapter.get_authorized_client(auth_info)
@@ -61,11 +64,11 @@ class DropboxAdapter:
     """Delete the file specified by the path
 
     Args:
-      - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
-      - ``path``: The path pointing toward the file, relative to /
+    - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
+    - ``path``: The path pointing toward the file, relative to /
 
     Returns:
-      - ``metadata``: The metadata of the file deleted
+    - ``metadata``: The metadata of the file deleted
 
     """
     client = DropboxAdapter.get_authorized_client(auth_info)
@@ -77,11 +80,11 @@ class DropboxAdapter:
     """Delete the file specified by the path
 
     Args:
-      - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
-      - ``path``: The path pointing toward the file, relative to /
+    - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
+    - ``path``: The path pointing toward the file, relative to /
 
     Returns:
-      - ``metadata``: The metadata of the file deleted
+    - ``metadata``: The metadata of the file deleted
 
     """
     client = DropboxAdapter.get_authorized_client(auth_info)
@@ -93,10 +96,10 @@ class DropboxAdapter:
     """Returns the remaining space (in bytes) of the account corresponding to auth_info
 
     Args:
-      - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
+    - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
 
     Returns:
-      - ``quota - shared_quota - normal_quota``: The remaining space of the account corresponding to auth_info
+    - ``quota - shared_quota - normal_quota``: The remaining space of the account corresponding to auth_info
 
     """
     client = DropboxAdapter.get_authorized_client(auth_info)
