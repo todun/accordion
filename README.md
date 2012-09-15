@@ -1,4 +1,7 @@
 accordion
 =========
 
-PennApps 2012-Fall project
+PennApps 2012-Fall Project
+
+Collaborators:
+  - Dylan Lukes
