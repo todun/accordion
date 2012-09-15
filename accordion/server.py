@@ -1,0 +1,18 @@
+import cherrypy
+
+class Root(object):
+  pass
+
+root = Root()
+
+conf = {
+  'global': {
+    'server.socket_host': '0.0.0.0',
+    'server.socket_port': 8000,
+  },
+  '/': {
+    'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
+  }
+}
+
+cherrypy.quickstart(root, '/', conf)
