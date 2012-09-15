@@ -1,16 +1,24 @@
+"""An abstract adaptor based on a subset of Google Drive and Dropbox APIs"""
 class AbstractAdapter(object):
-  """An abstract adaptor based on a subset of Google Drive and Dropbox APIs"""
-  def get(self, path):
+  
+  @staticmethod
+  def read(auth_info, path):
     """Retrive a file"""
     raise NotImplementedError("Should have implemented this")
 
-  def update(self, path):
+  @staticmethod
+  def update(auth_info, local_path, remote_path, overwrite):
     """Update a exisiting file."""
     raise NotImplementedError("Should have implemented this")
   
-  def delete(self, path):
+  @staticmethod
+  def delete(auth_info, path):
     """Delete a exisiting file."""       
     raise NotImplementedError("Should have implemented this")
       
-  def metadata(self, path):
+
+  def metadata(auth_info, path):
+    raise NotImplementedError("Should have implemented this")
+
+  def remaining_space(auth_info):
     raise NotImplementedError("Should have implemented this")
