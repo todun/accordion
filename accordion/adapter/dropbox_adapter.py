@@ -1,13 +1,14 @@
 from dropbox import client, rest, session
+from abstract import AbstractAdapter
 
 APP_KEY = 'id9ana8urw7ed3z'
 APP_SECRET = 'ducj44njp6wjhbw'
 ACCESS_TYPE = 'app_folder'
 
-class DropboxAdapter:
+class DropboxAdapter(AbstractAdapter):
 
   @staticmethod
-  def get_authorized_client(auth_info):
+  def _get_authorized_client(auth_info):
     """Get an authorized client using auth_info.
 
     Args:
