@@ -1,4 +1,19 @@
+import re
 from setuptools import setup
+
+def parse_requirements(file_name):
+    requirements = []
+    for line in open(file_name, 'r').read().split('\n'):
+        if re.match(r'(\s*#)|(\s*$)', line):
+            continue
+        if re.match(r'\s*-e\s+', line):
+            requirements.append(re.sub(r'\s*-e\s+.*#egg=(.*)$', r'\1', line))
+        elif re.match(r'\s*-f\s+', line):
+            pass
+        else:
+            requirements.append(line)
+
+    return requirements
 
 setup(
   name = 'accordion',
@@ -11,9 +26,5 @@ setup(
   license = 'LICENSE.txt',
   description = 'Online/offline storage aggregation server/client/...',
   long_description = open('README.rst').read(),
-  install_requires = [
-    "cherrypy >= 3.2.2",
-    "dropbox  >= 1.4",
-    "pymongo  >= 2.3"
-  ],
+  install_requires = parse_requirements('requirements.txt')
 )
