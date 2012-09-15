@@ -5,7 +5,7 @@ class File(object):
   exposed = True
 
   def GET(self):
-    pass
+    return "GET"
 
   def PUT(self):
     pass

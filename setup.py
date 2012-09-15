@@ -13,6 +13,7 @@ setup(
   long_description = open('README.rst').read(),
   install_requires = [
     "cherrypy >= 3.2.2",
-    "dropbox  >= 1.4"
+    "dropbox  >= 1.4",
+    "pymongo  >= 2.3"
   ],
 )

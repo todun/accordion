@@ -1,3 +1,4 @@
+import argparse
 import cherrypy
 
 class Root(object):
@@ -15,4 +16,18 @@ conf = {
   }
 }
 
-cherrypy.quickstart(root, '/', conf)
+#cherrypy.quickstart(root, '/', conf)
+
+def main():
+  print "hello"
+  parser = argparse.ArgumentParser(prog='PROG', description='Accordion Cloud Aggregation')
+  subparsers = parser.add_subparsers()
+
+  subparser_run = subparsers.add_parser('run')
+
+  subparser_run.add_argument('-p', '--port', metavar="PORT")
+  subparser_run.add_argument('-c', '--config', metavar="PATH")
+
+  args = parser.parse_args()
+
+  print args
