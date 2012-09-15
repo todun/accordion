@@ -23,12 +23,12 @@ class DropboxAdapter(AbstractAdapter):
     return client.DropboxClient(sess)
 
   @staticmethod
-  def read(auth_info, path):
-    """Get the file specified by the path.
+  def read(auth_info, ID):
+    """Get the file whose name is ID.
 
     Args:
     - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
-    - ``path``: The path pointing toward the file, relative to /Dropbox/accordion/
+    - ``ID``: A hashed ID that points to a file, relative to /Dropbox/Apps/Accordion/
 
     Returns:
     - ``f``: The file specified by the path; you need to call f.read() to actually get the content
@@ -36,17 +36,17 @@ class DropboxAdapter(AbstractAdapter):
 
     """
     client = DropboxAdapter.get_authorized_client(auth_info)
-    f, metadata = client.get_file_and_metadata('/'+path)
+    f, metadata = client.get_file_and_metadata('/'+ID)
     return f, metadata
 
   @staticmethod
-  def update(auth_info, local_path, remote_path, overwrite):
+  def update(auth_info, local_path, ID, overwrite):
     """Upload the file specified by local_path to remote_path
 
     Args:
     - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
     - ``local_path``: A path pointing toward the file, relative to the local root
-    - ``remote_path``: A path pointing toward the location where the file needs to be saved, not including file name
+    - ``ID``: A hashed ID that points to a file, relative to /Dropbox/Apps/Accordion/
     - ``overwrite``: A boolean value specifying what happens if a file with the same path exists.
 
     Returns:
@@ -57,16 +57,16 @@ class DropboxAdapter(AbstractAdapter):
     """
     client = DropboxAdapter.get_authorized_client(auth_info)
     f = open(local_path)
-    metadata = client.put_file('/'+remote_path, f, overwrite)
+    metadata = client.put_file('/'+ID, f, overwrite)
     return metadata
 
   @staticmethod
-  def delete(auth_info, path):
+  def delete(auth_info, ID):
     """Delete the file specified by the path
 
     Args:
     - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
-    - ``path``: The path pointing toward the file, relative to /
+    - ``ID``: A hashed ID that points to a file, relative to /Dropbox/Apps/Accordion/
 
     Returns:
     - ``metadata``: The metadata of the file deleted
@@ -77,12 +77,12 @@ class DropboxAdapter(AbstractAdapter):
     return metadata
 
   @staticmethod
-  def metadata(auth_info, path):
+  def metadata(auth_info, ID):
     """Delete the file specified by the path
 
     Args:
     - ``auth_info``: A dictionary of (key, secret) representing the access token Dropbox assigned to this app and user
-    - ``path``: The path pointing toward the file, relative to /
+    - ``ID``: A hashed ID that points to a file, relative to /Dropbox/Apps/Accordion/
 
     Returns:
     - ``metadata``: The metadata of the file deleted
