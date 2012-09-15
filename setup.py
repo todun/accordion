@@ -1,4 +1,4 @@
-from distutils.core improt setup
+from setuptools import setup
 
 setup(
   name = 'accordion',
@@ -9,7 +9,7 @@ setup(
   scripts = ['bin/accordion-server'],
   url = '',
   license = 'LICENSE.txt',
-  desxription = 'Online/offline storage aggregation server/client/...',
+  description = 'Online/offline storage aggregation server/client/...',
   long_description = open('README.rst').read(),
   install_requires = [
     "cherrypy >= 3.2.2"
