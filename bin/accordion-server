@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
 import accordion.server
+import sys
 
-# todo:
-#  - argparse
-#  - put config in file
-
-accordion.server.main()
+if __name__ == '__main__':
+  sys.exit(accordion.server.main())
