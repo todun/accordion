@@ -6,7 +6,7 @@ from apiclient.discovery import build
 from apiclient.http import MediaFileUpload
 from oauth2client.client import OAuth2Credentials
 
-class GoogleDriveAdapter():
+class GoogleDriveAdapter(object):
 
   @staticmethod
   def _get_drive_service(auth_info):
