@@ -25,7 +25,7 @@ def _get_drive_service(auth_info):
   return build('drive', 'v2', http=http)
 
 def _get_gdfileid_from_id(auth_info, ID):
-  drive_service = GoogleDriveAdapter._get_drive_service(auth_info)
+  drive_service = _get_drive_service(auth_info)
   param = {'maxResults': 1, 'q': "title = '"+ ID + "'", 'fields': 'items/id'}
   file_list_info = drive_service.files().list(**param).execute()
   if len(file_list_info['items']) == 0:
@@ -47,8 +47,8 @@ def read(auth_info, ID):
 
   """
 
-  drive_service = GoogleDriveAdapter._get_drive_service(auth_info)
-  file_id = GoogleDriveAdapter._get_gdfileid_from_id(auth_info, ID)
+  drive_service = _get_drive_service(auth_info)
+  file_id = _get_gdfileid_from_id(auth_info, ID)
   
   if file_id != None:
     file = drive_service.files().get(fileId=file_id).execute()
@@ -72,7 +72,7 @@ def update(auth_info, local_path, ID, overwrite):
 
   """
   
-  drive_service = GoogleDriveAdapter._get_drive_service(auth_info)
+  drive_service = _get_drive_service(auth_info)
   media_body = MediaFileUpload(ID, mimetype='binary/octet-stream', resumable=True)
   body = {
     'title': ID,
@@ -80,7 +80,7 @@ def update(auth_info, local_path, ID, overwrite):
     'mimeType': 'binary/octet-stream'
   }
     
-  file_id = GoogleDriveAdapter._get_gdfileid_from_id(auth_info, ID)
+  file_id = _get_gdfileid_from_id(auth_info, ID)
   print file_id
   if file_id != None:
     # We are updating an existing file
@@ -103,7 +103,7 @@ def delete(auth_info, ID):
 
   """
   
-  drive_service = GoogleDriveAdapter._get_drive_service(auth_info)
+  drive_service = _get_drive_service(auth_info)
   param = {'maxResults': 1, 'q': "title = '"+ ID + "'"}
   file_list_info = drive_service.files().list(**param).execute()
   file_id = file_list_info['items'][0]['id']
@@ -122,7 +122,7 @@ def metadata(auth_info, ID):
 
   """
 
-  drive_service = GoogleDriveAdapter._get_drive_service(auth_info)
-  file_id = GoogleDriveAdapter._get_gdfileid_from_id(auth_info, ID)
+  drive_service = _get_drive_service(auth_info)
+  file_id = _get_gdfileid_from_id(auth_info, ID)
   file_metadata = drive_service.files().get(fileId=file_id).execute()
   return file_metadata
