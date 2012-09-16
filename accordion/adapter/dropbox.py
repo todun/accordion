@@ -1,10 +1,11 @@
 from dropbox import client, rest, session
+from abstract import AbstractAdapter
 
 APP_KEY = 'id9ana8urw7ed3z'
 APP_SECRET = 'ducj44njp6wjhbw'
 ACCESS_TYPE = 'app_folder'
 
-class DropboxAdapter(object):
+class DropboxAdapter(AbstractAdapter):
 
   @staticmethod
   def _get_authorized_client(auth_info):
@@ -107,3 +108,10 @@ class DropboxAdapter(object):
     shared_quota = account_info['quota_info']['shared']
     normal_quota = account_info['quota_info']['normal']
     return quota - shared_quota - normal_quota
+
+  @staticmethod
+  def total_space(auth_info):
+    client = DropboxAdapter.get_authorized_client(auth_info)
+    account_info = client.account_info()
+    quota = account_info['quota_info']['quota']
+    return quota
