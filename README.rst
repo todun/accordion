@@ -3,6 +3,7 @@ Accordion
 =========
 
 PennApps 2012-Fall Project
+(Sadly we were unable to make the PennApps submission deadline.  However we will continue to work on this project.)
 
 Collaborators:
   - Dylan Lukes
@@ -19,7 +20,7 @@ Accordion provides a unified interface for users to easily manage multiple cloud
 
 This repository hosts the server side of Accordion.  The web app is hosted in: https://github.com/faily/accordionwebapp
 
-Derek is maintaining the "master" branch.  Dylan Lukes is maintaining the "future" branch, which aims to clean up existing code base 
+Derek is maintaining the "master" branch.  Dylan Lukes is maintaining the "future" branch, which aims to clean up existing code base. 
 
 
 Environment Variables3
