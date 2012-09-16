@@ -2,11 +2,9 @@ import json
 import pprint
 import httplib2
 
-
 from apiclient.discovery import build
 from apiclient.http import MediaFileUpload
 from oauth2client.client import OAuth2Credentials
-
 
 class GoogleDriveAdapter():
 
