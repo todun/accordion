@@ -1,1 +1,0 @@
-web: python bin/accordion-server -p $PORT
