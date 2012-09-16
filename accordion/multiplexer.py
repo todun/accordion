@@ -4,7 +4,7 @@ import os
 import accordion.adapter.dropbox as dropbox_adapter
 
 conn = pymongo.Connection(os.environ['ACCORDION_MONGO_URI'])
-db = conn.accordion
+db = conn.test
 
 class FileNotFoundException(Exception): pass
 
@@ -103,7 +103,6 @@ def _get_file(path):
   """
   Returns a dictionary corresponds 
   """
-
   return db.files.find_one({"path": path})
 
 def _get_auth_info(f):
