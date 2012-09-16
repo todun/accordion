@@ -1,6 +1,11 @@
 import argparse
 import cherrypy
 
+# this monkeypatch is required to "fix" cherrypy so it will work on Heroku
+from cherrypy.process import servers
+def fake_wait_for_occupied_port(host, port): return
+servers.wait_for_occupied_port = fake_wait_for_occupied_port
+
 import pymongo
 import pprint
 import os
