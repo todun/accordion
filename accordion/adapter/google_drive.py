@@ -86,7 +86,7 @@ def update(auth_info, local_path, ID, overwrite):
     # We are updating an existing file
     updated_file = drive_service.files().update(fileId=file_id, body=body, media_body=media_body).execute()
     return updated_file
-  else:    
+  else:
     # We are uploading a new file
     inserted_file = drive_service.files().insert(body=body, media_body=media_body).execute()
     return inserted_file
