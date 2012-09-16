@@ -3,21 +3,21 @@ from dropbox import client, rest, session
 class Multiplexer():
 
   @staticmethod
-  def read(auth_info, ID):
+  def read():
     pass
 
   @staticmethod
-  def update(auth_info, local_path, ID, overwrite):
+  def update():
     pass
 
   @staticmethod
-  def delete(auth_info, ID):
+  def delete():
     pass
 
   @staticmethod
-  def metadata(auth_info, ID):
+  def metadata():
     pass
 
   @staticmethod
-  def remaining_space(auth_info):
+  def remaining_space():
     pass
