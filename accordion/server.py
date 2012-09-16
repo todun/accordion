@@ -22,16 +22,16 @@ class File(object):
   exposed = True
 
   def GET(self, *args, **kwargs):
-    return "GET: %s" % str(args)
+    return "<p>GET: %s</p>" % str(args)
 
   def POST(self, *args, **kwargs):
-    return "POST: %s" % str(args)
+    return "<p>POST: %s</p>" % str(args)
 
   def PUT(self, *args, **kwargs):
-    return "PUT: %s" % str(args)
+    return "<p>PUT: %s</p>" % str(args)
 
   def DELETE(self, *args, **kwargs):
-    return "DELETE: %s" % str(args)
+    return "<p>DELETE: %s</p>" % str(args)
 
 root = Root()
 root.file = File()
