@@ -1,28 +1,26 @@
 import argparse
 import cherrypy
+import pymongo
+import pprint
+import os
+
+import accordion.multiplexer
 
 # this monkeypatch is required to "fix" cherrypy so it will work on Heroku
 from cherrypy.process import servers
 def fake_wait_for_occupied_port(host, port): return
 servers.wait_for_occupied_port = fake_wait_for_occupied_port
 
-import pymongo
-import pprint
-import os
-
 connection = pymongo.Connection(os.environ['ACCORDION_MONGO_URI'])
 
 class Root(object):
-  def index(self):
-    return "<p>index</p>"
-
-  index.exposed = True
+  pass
 
 class File(object):
   exposed = True
 
   def GET(self, *args, **kwargs):
-    return "<p>GET: %s</p>" % str(args)
+    f = 
 
   def POST(self, *args, **kwargs):
     return "<p>POST: %s</p>" % str(args)
@@ -33,8 +31,19 @@ class File(object):
   def DELETE(self, *args, **kwargs):
     return "<p>DELETE: %s</p>" % str(args)
 
+class Debug(object):
+  exposed = True
+
+  def GET(self, *args, **kwargs):
+    return """
+      <h2>Debug:</h2>
+
+      
+    """
+
 root = Root()
 root.file = File()
+root.debug = Debug()
 
 conf = {
   '/': {

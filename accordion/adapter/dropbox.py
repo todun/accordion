@@ -1,9 +1,6 @@
 from dropbox import client, rest, session
 from abstract import AbstractAdapter
-
-APP_KEY = 'id9ana8urw7ed3z'
-APP_SECRET = 'ducj44njp6wjhbw'
-ACCESS_TYPE = 'app_folder'
+import os
 
 class DropboxAdapter(AbstractAdapter):
 
@@ -18,7 +15,7 @@ class DropboxAdapter(AbstractAdapter):
     - ``client.DropboxClient(sess)``: The authorized client
 
     """
-    sess = session.DropboxSession(APP_KEY, APP_SECRET, ACCESS_TYPE)
+    sess = session.DropboxSession(os.environ['DROPBOX_APP_KEY'], os.environ['DROPBOX_APP_SECRET'], 'app_folder')
     sess.set_token(auth_info['key'], auth_info['secret'])
     return client.DropboxClient(sess)
 
