@@ -1,24 +1,22 @@
 import pymongo
 import pprint
 import os
-from accordion.dropbox import DropboxAdapter
-from accordion.google_drive import GoogleDriveAdapter
+import accordion.adapter.dropbox as dropbox_adapter
 
-db = pymongo.Connection(os.environ['ACCORDION_MONGO_URI'])
+conn = pymongo.Connection(os.environ['ACCORDION_MONGO_URI'])
+db = conn.accordion
 
-FileNotFoundExceptionMessage = "The file does not exist."
+class FileNotFoundException(Exception): pass
 
-@staticmethod
 def read(path):
   f = _get_file(path)
   if f == None:
-    raise FileNotFoundException(FileNotFoundExceptionMessage)
+    raise FileNotFoundException()
   else:
-    adapter = _get_adapter(f.service)
+    adapter = _get_adapter(f['service'])
     # Find the file whose name is id
     return adapter.read(_get_auth_info(f), f["_id"])
 
-@staticmethod
 def update(file_object, path, mime_type="text/plain"):
   f = _get_file(path)
   if f == None:
@@ -28,24 +26,21 @@ def update(file_object, path, mime_type="text/plain"):
 
   return adapter.update(_get_auth_info(f), file_object, f['_id'])
 
-@staticmethod
 def delete(path):
   f = _get_file(path)
   if f == None:
-    raise FileNotFoundException(FileNotFoundExceptionMessage)
+    raise FileNotFoundException()
 
   adapter = _get_adapter(f['service'])
   return adapter.delete(_get_auth_info(f), f['_id'])
 
-@staticmethod
 def metadata(path):
   f = _get_file(path)
   if f == None:
-    raise FileNotFoundException(FileNotFoundExceptionMessage)
+    raise FileNotFoundException()
   adapter = _get_adapter(f['service'])
   return adapter.metadata(_get_auth_info(f), f['id'])
 
-@staticmethod
 def remaining_space():
   total_remaining_space = 0
   for account in db.accounts.find():
@@ -53,7 +48,6 @@ def remaining_space():
     total_remaining_space += adapter.remaining_space(account['auth_info'])
   return total_remaining_space
 
-@staticmethod
 def total_space():
   total_total_space = 0
   for account in db.accounts.find():
@@ -61,7 +55,6 @@ def total_space():
     total_total_space += adapter.total_space(account['auth_info'])
   return total_total_space
 
-@staticmethod
 def unused_space():
   total_unused_space = 0
   for account in db.accounts.find():
@@ -69,7 +62,6 @@ def unused_space():
     total_unused_space += adapter.unused_space(account['auth_info'])
   return total_unused_space
 
-@staticmethod
 def _add_file(file_object, path, mime_type):
   """
   Creates a new file object in the collection "files"
@@ -93,30 +85,27 @@ def _add_file(file_object, path, mime_type):
 
   db.files.insert(f)
 
-@staticmethod
 def _get_size(fileobject):
   fileobject.seek(0,2) # move the cursor to the end of the file
   size = fileobject.tell()
   return size
 
-@staticmethod
 def _get_adapter(service):
   """
   Returns an adapter that corresponds to the given service
   """
   if (service == 'dropbox'):
-    return DropboxAdapter
-  elif (service == 'google_drive'):
-    return GoogleDriveAdapter
+    return dropbox_adapter
+  # elif (service == 'google_drive'):
+    # return google_drive_adapter
 
-@staticmethod
 def _get_file(path):
   """
   Returns a dictionary corresponds 
   """
+
   return db.files.find_one({"path": path})
 
-@staticmethod
 def _get_auth_info(f):
   """
   Returns auth_info of the account that is in charge of the give file f

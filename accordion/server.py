@@ -4,14 +4,15 @@ import pymongo
 import pprint
 import os
 
-import accordion.multiplexer
+import accordion.multiplexer as multiplexer
 
 # this monkeypatch is required to "fix" cherrypy so it will work on Heroku
 from cherrypy.process import servers
 def fake_wait_for_occupied_port(host, port): return
 servers.wait_for_occupied_port = fake_wait_for_occupied_port
 
-connection = pymongo.Connection(os.environ['ACCORDION_MONGO_URI'])
+conn = pymongo.Connection(os.environ['ACCORDION_MONGO_URI'])
+db = conn.accordion
 
 class Root(object):
   pass
@@ -20,7 +21,11 @@ class File(object):
   exposed = True
 
   def GET(self, *args, **kwargs):
-    pass
+    try:
+      multiplexer.read(args)
+      return "<h1>Now make this work</h1>"
+    except multiplexer.FileNotFoundException, e:
+      return "<h1>File not found!</h1>"
 
   def POST(self, *args, **kwargs):
     return "<p>POST: %s</p>" % str(args)
@@ -37,8 +42,6 @@ class Debug(object):
   def GET(self, *args, **kwargs):
     return """
       <h2>Debug:</h2>
-
-      
     """
 
 root = Root()
