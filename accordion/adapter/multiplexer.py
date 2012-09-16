@@ -107,7 +107,7 @@ class Multiplexer():
     """
     if (service == 'dropbox'):
       return DropboxAdapter
-    elif (service == 'google_drive')
+    elif (service == 'google_drive'):
       return GoogleDriveAdapter
  
   @staticmethod
