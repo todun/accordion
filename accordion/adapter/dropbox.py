@@ -39,7 +39,7 @@ class DropboxAdapter(object):
     return f, metadata
 
   @staticmethod
-  def update(auth_info, local_path, ID, overwrite):
+  def update(auth_info, file_object, ID):
     """Upload the file specified by local_path to remote_path
 
     Args:
@@ -55,8 +55,7 @@ class DropboxAdapter(object):
 
     """
     client = DropboxAdapter.get_authorized_client(auth_info)
-    f = open(local_path)
-    metadata = client.put_file('/'+ID, f, overwrite)
+    metadata = client.put_file('/'+ID, file_object, True)
     return metadata
 
   @staticmethod
