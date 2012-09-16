@@ -1,6 +1,11 @@
 import argparse
 import cherrypy
 
+# this monkeypatch is required to "fix" cherrypy so it will work on Heroku
+from cherrypy.process import servers
+def fake_wait_for_occupied_port(host, port): return
+servers.wait_for_occupied_port = fake_wait_for_occupied_port
+
 import pymongo
 import pprint
 import os
@@ -14,22 +19,19 @@ class Root(object):
   index.exposed = True
 
 class File(object):
-  def __init__(self):
-    pass
-
   exposed = True
 
-  def GET(self, *path):
-    return "get: %s" % str(path)
+  def GET(self, *args, **kwargs):
+    return "<p>GET: %s</p>" % str(args)
 
-  def POST(self, *path):
-    return "post: %s" % str(path)
+  def POST(self, *args, **kwargs):
+    return "<p>POST: %s</p>" % str(args)
 
-  def PUT(self, *path):
-    return "put: %s" % str(path)
+  def PUT(self, *args, **kwargs):
+    return "<p>PUT: %s</p>" % str(args)
 
-  def DELETE(self, *path):
-    return "delete: %s" % str(path)
+  def DELETE(self, *args, **kwargs):
+    return "<p>DELETE: %s</p>" % str(args)
 
 root = Root()
 root.file = File()
