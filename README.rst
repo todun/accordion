@@ -3,7 +3,6 @@ Accordion
 =========
 
 PennApps 2012-Fall Project
-(Sadly we were unable to make the PennApps submission deadline.  However we will continue to work on this project.)
 
 Collaborators:
   - Dylan Lukes
@@ -22,6 +21,7 @@ This repository hosts the server side of Accordion.  The web app is hosted in: h
 
 Derek is maintaining the "master" branch.  Dylan Lukes is maintaining the "future" branch, which aims to clean up existing code base. 
 
+(Sadly we were unable to make the PennApps submission deadline.  However we will continue to work on this project.)
 
 Environment Variables3
 ---------------------
