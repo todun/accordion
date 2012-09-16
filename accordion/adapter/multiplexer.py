@@ -1,6 +1,8 @@
 import pymongo
 import pprint
 import os
+from dropbox import DropboxAdapter
+from google_drive import GoogleDriveAdapter
 
 db = pymongo.Connection(os.environ['ACCORDION_MONGO_URI'])
 
@@ -103,8 +105,11 @@ class Multiplexer():
     """
     Returns an adapter that corresponds to the given service
     """
-    
-
+    if (service == 'dropbox'):
+      return DropboxAdapter
+    elif (service == 'google_drive')
+      return GoogleDriveAdapter
+ 
   @staticmethod
   def _get_file(path):
     """
