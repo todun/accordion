@@ -14,22 +14,19 @@ class Root(object):
   index.exposed = True
 
 class File(object):
-  def __init__(self):
-    pass
-
   exposed = True
 
-  def GET(self, *path):
-    return "get: %s" % str(path)
+  def GET(self, *args, **kwargs):
+    return "GET: %s" % str(args)
 
-  def POST(self, *path):
-    return "post: %s" % str(path)
+  def POST(self, *args, **kwargs):
+    return "POST: %s" % str(args)
 
-  def PUT(self, *path):
-    return "put: %s" % str(path)
+  def PUT(self, *args, **kwargs):
+    return "PUT: %s" % str(args)
 
-  def DELETE(self, *path):
-    return "delete: %s" % str(path)
+  def DELETE(self, *args, **kwargs):
+    return "DELETE: %s" % str(args)
 
 root = Root()
 root.file = File()
