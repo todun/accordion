@@ -20,7 +20,7 @@ class File(object):
   exposed = True
 
   def GET(self, *args, **kwargs):
-    f = 
+    pass
 
   def POST(self, *args, **kwargs):
     return "<p>POST: %s</p>" % str(args)
